@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-app.get("/app", function(req,res) {
+app.get("/app", (req,res) => {
     res.send("home")
 });
 
@@ -24,6 +24,11 @@ const SURF_SPOTS = {
   bells:          { name: 'Bells Beach',         country: 'Australia',        lat: -38.37, lon: 144.28  },
 };
 
+app.post("/api/conditions",  async (req, res) => {
+  const {spot, activity, days} = req.body
+  
+  console.log("post request");
+});
 
 app.listen(3000);
 
