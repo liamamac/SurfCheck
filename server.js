@@ -30,9 +30,15 @@ app.post("/api/conditions",  async (req, res) => {
   if (!spot || !activity || !days) {
     return res.status(400).json({errro: "Invalid input. Must input spot, activity and days"});
   }
-  
+
+  const location = SURF_SPOTS[spot];
+  const lat = location.lat;
+  const lon = location.lon;
+  const name = location.name;
+  const country = location.country;
+
   console.log("post request");
-});
+})
 
 app.listen(3000);
 
