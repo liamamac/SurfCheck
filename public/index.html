@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SurfCheck</title>
+</head>
+<body>
+
+  <h1>SurfCheck</h1>
+  <p>Check surf conditions at the world's best breaks</p>
+
+  <form id="conditionsForm">
+
+    <select id="spot" name="spot">
+      <option value="" disabled selected>Select a surf location</option>
+      <option value="pipeline">Pipeline — Hawaii, USA</option>
+      <option value="jeffreysbay">Jeffrey's Bay — South Africa</option>
+      <option value="uluwatu">Uluwatu — Bali, Indonesia</option>
+      <option value="hossegor">Hossegor — France</option>
+      <option value="snapper">Snapper Rocks — Australia</option>
+      <option value="mundaka">Mundaka — Spain</option>
+      <option value="teahupoo">Teahupo'o — Tahiti</option>
+      <option value="cloudbreak">Cloudbreak — Fiji</option>
+      <option value="supertubes">Supertubes — South Africa</option>
+      <option value="bondi">Bondi Beach — Australia</option>
+      <option value="nazare">Nazaré — Portugal</option>
+      <option value="trestles">Trestles — California, USA</option>
+      <option value="huntington">Huntington Beach — California, USA</option>
+      <option value="raglan">Raglan — New Zealand</option>
+      <option value="bells">Bells Beach — Australia</option>
+    </select>
+
+      <legend>Activity</legend>
+
+      <input type="radio" id="surfing" name="activity" value="surfing" checked />
+      <label for="surfing">Surfing</label><br>
+
+      <input type="radio" id="swimming" name="activity" value="swimming" />
+      <label for="swimming">Swimming</label><br>
+
+      <input type="radio" id="kitesurfing" name="activity" value="kitesurfing" />
+      <label for="kitesurfing">Kitesurfing</label><br>
+
+
+    <label for="days">Forecast Length</label><br>
+    <select id="days" name="days">
+      <option value="" disabled selected>Select number of days</option>
+      <option value="3">3 days</option>
+      <option value="5">5 days</option>
+      <option value="7">7 days</option>
+    </select><br>
+
+    <button type="submit">Check Conditions</button>
+
+  </form>
+
+  <div id="results"></div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
