@@ -58,15 +58,28 @@ app.post("/api/conditions",  async (req, res) => {
     
     if (marineData.error)
       return res.status(500).json({error:marineData.reason});
-     if (weatherData.error) 
+    if (weatherData.error) 
       return res.status(500).json({error:weatherData.reason});
+    
+    const forecast = marineData.daily.time.map((date, i) => {
+      const wave = marineData.daily.wave_height_max[i] ?? 0;
+      const swell = marineData.daily.wave_period_max[i] ?? 0;
+      const swellH = marineData.daily.swell_wave_height_max[i] ?? 0;
+      const wind = weatherData.daily.windspeed_10m_max[i] ?? 0;
+      const windDir = weatherData.daily.winddirection_10m_dominant[i] ?? 0;
+      const tempMax = weatherData.daily.temperature_2m_max[i] ?? 0;
+      const tempMin = weatherData.daily.temperature_2m_min[i] ?? 0;
+      const precip = weatherData.daily.precipitation_sum[i] ?? 0;
 
+      return {date, wave, swell, swellH, wind, windDir, tempMax, tempMin, precip};
+    });
+
+    res.json({spot: name, country, activity, forecast});
+    
     } catch {
       console.error(err);
       res.status(500).json({error: 'Server error: ' + err.message});
     }
-
-  console.log("post request");
 })
 
 app.listen(3000);
