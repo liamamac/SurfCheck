@@ -48,9 +48,15 @@ app.post("/api/conditions",  async (req, res) => {
     const marineData = await marineRes.json();
     const weatherData = await weatherRes.json();
     
-  } catch {
+    if (marineData.error) {
+      return res.status(500).json({error:marineData.reason});
+     }
+     if (weatherDataData.error) {
+      return res.status(500).json({error:weatherData.reason});
+    } 
+    } catch {
 
-  }
+    }
 
   console.log("post request");
 })
