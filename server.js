@@ -58,11 +58,12 @@ app.post("/api/conditions",  async (req, res) => {
     
     if (marineData.error)
       return res.status(500).json({error:marineData.reason});
-     if (weatherDataData.error) 
+     if (weatherData.error) 
       return res.status(500).json({error:weatherData.reason});
 
     } catch {
-
+      console.error(err);
+      res.status(500).json({error: 'Server error: ' + err.message});
     }
 
   console.log("post request");
