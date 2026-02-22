@@ -40,7 +40,14 @@ app.post("/api/conditions",  async (req, res) => {
   const country = location.country;
 
   try {
+    const [marineRes, weatherRes] = await Promise.all([
+      fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&daily=wave_height_max,wave_period_max,swell_wave_height_max&timezone=auto&start_date=${START}&end_date=${END}`),
+      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,winddirection_10m_dominant&timezone=auto&start_date=${START}&end_date=${END}`)
+    ])
 
+    const marineData = await marineRes.json();
+    const weatherData = await weatherRes.json();
+    
   } catch {
 
   }
