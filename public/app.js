@@ -4,11 +4,11 @@ form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const spot = document.getElementById('spot').value;
-    const activity = document.getElementById('input[name="activity"]:checked').value;
+    const activity = document.querySelector('input[name="activity"]:checked').value;
     const days = document.getElementById('days').value;
 
     console.log('Form values:', { spot, activity, days }); 
-    
+
     const res = await fetch('/api/conditions', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
