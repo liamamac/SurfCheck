@@ -39,21 +39,28 @@ app.post("/api/conditions",  async (req, res) => {
   const name = location.name;
   const country = location.country;
 
+  const today = new Date();
+  const start = today.toISOString().split('T')[0];
+  const endDate = new Date(today);
+  endDate.setDate(today.getDate() + (parseInt(days) - 1));
+  const end = endDate.toISOString().split('T')[0];
+
+
+
   try {
     const [marineRes, weatherRes] = await Promise.all([
-      fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&daily=wave_height_max,wave_period_max,swell_wave_height_max&timezone=auto&start_date=${START}&end_date=${END}`),
-      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,winddirection_10m_dominant&timezone=auto&start_date=${START}&end_date=${END}`)
+      fetch(`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&daily=wave_height_max,wave_period_max,swell_wave_height_max&timezone=auto&start_date=${start}&end_date=${end}`),
+      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,winddirection_10m_dominant&timezone=auto&start_date=${start}&end_date=${end}`)
     ])
 
     const marineData = await marineRes.json();
     const weatherData = await weatherRes.json();
     
-    if (marineData.error) {
+    if (marineData.error)
       return res.status(500).json({error:marineData.reason});
-     }
-     if (weatherDataData.error) {
+     if (weatherDataData.error) 
       return res.status(500).json({error:weatherData.reason});
-    } 
+
     } catch {
 
     }
