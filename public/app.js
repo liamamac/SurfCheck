@@ -9,14 +9,18 @@ form.addEventListener('submit', async (e) => {
 
     console.log('Form values:', { spot, activity, days }); 
 
-    const res = await fetch('/api/conditions', {
+    try {
+        const res = await fetch('/api/conditions', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({spot, activity, days})
     });
 
-    const data = await res.json();
-    displayResults(data);
+        const data = await res.json();
+        displayResults(data);
+    } catch (err) {
+        console.error(err);
+    }
 });
 
 function displayResults(data) {
