@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json());
+
 app.get("/app", (req,res) => {
     res.send("home")
 });
@@ -36,6 +38,12 @@ app.post("/api/conditions",  async (req, res) => {
   const lon = location.lon;
   const name = location.name;
   const country = location.country;
+
+  try {
+
+  } catch {
+
+  }
 
   console.log("post request");
 })
