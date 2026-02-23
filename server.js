@@ -28,6 +28,57 @@ const SURF_SPOTS = {
   bells:          { name: 'Bells Beach',         country: 'Australia',        lat: -38.37, lon: 144.28  },
 };
 
+function conditionsScore(activity, wave, swell, wind, precip) {
+  let score = 0;
+
+  if (activity === 'surfing') {
+    if (wave >= 1.5 && wave <= 3.0) score += 40;
+    else if (wave >= 0.8 && wave < 1.5) score += 25;
+    else if (wave > 3.0 && wave <= 5.0) score += 20;
+    else score += 5;
+    if (swell >= 12) score += 30;
+    else if (swell >= 8) score += 20;
+    else score += 5;
+    if (wind <= 15) score += 20;
+    else if (wind <= 25) score += 10;
+    else score += 0;
+    if (precip === 0) score += 10;
+    else if (precip < 5) score += 5;
+
+  } else if (activity === 'swimming') {
+    if (wave <= 0.5) score += 40;
+    else if (wave <= 1.0) score += 25;
+    else score += 5;
+    if (wind <= 10) score += 30;
+    else if (wind <= 20) score += 15;
+    else score += 0;
+    if (precip === 0) score += 20;
+    else if (precip < 2) score += 10;
+    score += 10;
+
+  } else if (activity === 'kitesurfing') {
+    if (wind >= 20 && wind <= 35) score += 40;
+    else if (wind >= 15 && wind < 20) score += 25;
+    else if (wind > 35) score += 10;
+    else score += 0;
+    if (wave >= 0.5 && wave <= 2.0) score += 30;
+    else if (wave > 2.0) score += 15;
+    else score += 5;
+    if (swell >= 6) score += 20;
+    else score += 10;
+    if (precip === 0) score += 10;
+  }
+
+  return Math.min(score, 100);
+}
+
+function scoreLabel(score) {
+  if (score >= 75) return 'Excellent';
+  if (score >= 50) return 'Good';
+  if (score >= 30) return 'Fair';
+  return 'Poor';
+}
+
 app.post("/api/conditions",  async (req, res) => {
   const {spot, activity, days} = req.body
   
@@ -72,8 +123,10 @@ app.post("/api/conditions",  async (req, res) => {
       const tempMax = weatherData.daily.temperature_2m_max[i] ?? 0;
       const tempMin = weatherData.daily.temperature_2m_min[i] ?? 0;
       const precip = weatherData.daily.precipitation_sum[i] ?? 0;
+       const score = scoreConditions(activity, wave, swell, wind, precip);
 
-      return {date, wave, swell, swellH, wind, windDir, tempMax, tempMin, precip};
+      return {date, wave, swell, swellH, wind, windDir, 
+        tempMax, tempMin, precip, score, label: scoreLabel(score)};
     });
 
     res.json({spot: name, country, activity, forecast});
