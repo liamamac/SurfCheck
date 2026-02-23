@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css"/>
   <title>SurfCheck</title>
 </head>
 <body>
@@ -31,16 +32,13 @@
       <option value="bells">Bells Beach — Australia</option>
     </select>
 
-      <legend>Activity</legend>
+    <legend>Activity</legend>
 
-      <input type="radio" id="surfing" name="activity" value="surfing" checked />
-      <label for="surfing">Surfing</label><br>
-
-      <input type="radio" id="swimming" name="activity" value="swimming" />
-      <label for="swimming">Swimming</label><br>
-
-      <input type="radio" id="kitesurfing" name="activity" value="kitesurfing" />
-      <label for="kitesurfing">Kitesurfing</label><br>
+    <div class="activity-group">
+      <label><input type="radio" name="activity" value="surfing" checked /> Surfing</label>
+      <label><input type="radio" name="activity" value="swimming" /> Swimming</label>
+      <label><input type="radio" name="activity" value="kitesurfing" /> Kitesurfing</label>
+    </div>
 
 
     <label for="days">Forecast Length</label><br>
