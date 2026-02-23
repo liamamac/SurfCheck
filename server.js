@@ -123,7 +123,7 @@ app.post("/api/conditions",  async (req, res) => {
       const tempMax = weatherData.daily.temperature_2m_max[i] ?? 0;
       const tempMin = weatherData.daily.temperature_2m_min[i] ?? 0;
       const precip = weatherData.daily.precipitation_sum[i] ?? 0;
-       const score = scoreConditions(activity, wave, swell, wind, precip);
+       const score = conditionsScore(activity, wave, swell, wind, precip);
 
       return {date, wave, swell, swellH, wind, windDir, 
         tempMax, tempMin, precip, score, label: scoreLabel(score)};
