@@ -32,7 +32,7 @@ function displayResults(data) {
   }
 
   let html = `<h2>${data.spot}, ${data.country}</h2>`;
-  html += `<p>Activity: ${data.activity} - Overall Score: ${data.forecast[0].label}</p>`;
+  html += `<p>Activity: ${data.activity} - Conditions: ${data.forecast[0].label}</p>`;
   html += `<table>
     <thead>
       <tr>
